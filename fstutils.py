@@ -22,7 +22,10 @@ def lookup(transducer, string):
     Returns:
         str: The output of string in transducer
     """
-    return remove_epsilons(transducer.lookup(string)[0][0])
+    results = transducer.lookup(string)
+    if results:
+        raise FstPathNotFound()
+    return remove_epsilons([r[0] for r in results])
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
@@ -42,6 +45,9 @@ def pairs(transducer):
             pairs += f' {out}\n'
     return pairs
 
+class FstPathNotFound(Exception):
+    pass
+
 class Definitions:
     """A utility class for creating Set FSTs for reuse in FST regex.
     
@@ -58,6 +64,14 @@ class Definitions:
             definitions (dict): dictionary with keys of Fst set names, and values of regex sets.
         """
         self.defs = definitions
+        for fstname, regex in self.defs.items():
+            replaced = True
+            while replaced:
+                replaced = False
+                for fstname2, regex2 in self.defs.items():
+                    if fstname != fstname2:
+                        self.defs[fstname] = regex.replace(fstname2, regex2)
+                        replaced = True
 
     def replace(self, string):
         """Replaces all defined set names occuring in regex string with corresponding set.
