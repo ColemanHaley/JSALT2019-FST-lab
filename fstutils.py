@@ -64,6 +64,14 @@ class Definitions:
             definitions (dict): dictionary with keys of Fst set names, and values of regex sets.
         """
         self.defs = definitions
+        for fstname, regex in self.defs.items():
+            replaced = True
+            while replaced:
+                replaced = False
+                for fstname2, regex2 in self.defs.items():
+                    if fstname != fstname2:
+                        self.defs[fstname] = regex.replace(fstname2, regex2)
+                        replaced = True
 
     def replace(self, string):
         """Replaces all defined set names occuring in regex string with corresponding set.
