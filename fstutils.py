@@ -22,7 +22,10 @@ def lookup(transducer, string):
     Returns:
         str: The output of string in transducer
     """
-    return remove_epsilons(transducer.lookup(string)[0][0])
+    results = transducer.lookup(string)
+    if results:
+        raise FstPathNotFound()
+    return remove_epsilons([r[0] for r in results])
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
@@ -41,6 +44,9 @@ def pairs(transducer):
             out = remove_epsilons(output[0])
             pairs += f' {out}\n'
     return pairs
+
+class FstPathNotFound(Exception):
+    pass
 
 class Definitions:
     """A utility class for creating Set FSTs for reuse in FST regex.
