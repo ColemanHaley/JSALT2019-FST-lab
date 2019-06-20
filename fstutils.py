@@ -23,14 +23,10 @@ def lookup(transducer, string):
     Returns:
         str: The output of string in transducer
     """
-    try:
-        result = transducer.lookup(string)
-        result = remove_epsilons(transducer.lookup(string)[0][0])
-
-    except IndexError:
-        raise Exception("Word form " + string + " not found in transducer")
-
-    return result
+    results = transducer.lookup(string)
+    if results:
+        raise FstPathNotFound()
+    return remove_epsilons([r[0] for r in results])
 
 def test_fst(transducer, expected):
     """Tests whether an FST produces all output as provided in expected
@@ -79,6 +75,8 @@ def pairs(transducer):
             pairs += f' {out}\n'
     return pairs
 
+class FstPathNotFound(Exception):
+    pass
 
 class Definitions:
     """A utility class for creating Set FSTs for reuse in FST regex.
@@ -96,6 +94,14 @@ class Definitions:
             definitions (dict): dictionary with keys of Fst set names, and values of regex sets.
         """
         self.defs = definitions
+        for fstname, regex in self.defs.items():
+            replaced = True
+            while replaced:
+                replaced = False
+                for fstname2, regex2 in self.defs.items():
+                    if fstname != fstname2:
+                        self.defs[fstname] = regex.replace(fstname2, regex2)
+                        replaced = True
 
     def replace(self, string):
         """Replaces all defined set names occuring in regex string with corresponding set.
