@@ -23,9 +23,9 @@ def lookup(transducer, string):
         str: The output of string in transducer
     """
     results = transducer.lookup(string)
-    if results:
+    if not results:
         raise FstPathNotFound()
-    return remove_epsilons([r[0] for r in results])
+    return [remove_epsilons(r[0]) for r in results]
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
@@ -70,8 +70,13 @@ class Definitions:
                 replaced = False
                 for fstname2, regex2 in self.defs.items():
                     if fstname != fstname2:
-                        self.defs[fstname] = regex.replace(fstname2, regex2)
-                        replaced = True
+                        result = regex.replace(fstname2, regex2)
+                        if result != regex:
+                            self.defs[fstname] = result
+                            regex = result
+                            replaced = True
+                            break
+
 
     def replace(self, string):
         """Replaces all defined set names occuring in regex string with corresponding set.
