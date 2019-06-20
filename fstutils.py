@@ -12,6 +12,7 @@ def remove_epsilons(string, epsilon='@_EPSILON_SYMBOL_@'):
     """
     return string.replace('@_EPSILON_SYMBOL_@', '')
 
+
 def lookup(transducer, string):
     """Returns the output for an input in an hfst transducer, sans any epsilons or weights.
     
@@ -26,6 +27,35 @@ def lookup(transducer, string):
     if not results:
         raise FstPathNotFound()
     return [remove_epsilons(r[0]) for r in results]
+
+def test_fst(transducer, expected):
+    """Tests whether an FST produces all output as provided in expected
+    
+    Args: 
+        transducer (HfstTransducer): The HfstTransducer to use for testing
+        expected (dict): This is a dictionary where the key is a word form and the 
+                         value returned is a list of analyses for that key given the fst
+    
+    """
+    error_count = 0
+    pass_count = 0
+    for key in expected:
+        res = fst.lookup(key)
+        for item in res:
+            if not in expected[key]:
+                print("Your grammar over generates the word " + item + " given the input " + key)
+                error_count += 1
+
+        for val in expected[key]:
+            if val not in res:
+                print("Your grammar does not generate the word " + val + " given the input " + key)
+                error_count += 1
+
+    print("There were " + str(error_count) + " errors")
+    if error_count == 0:
+        return True
+    else:
+        return False
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
