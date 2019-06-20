@@ -1,0 +1,68 @@
+
+LEXICON Root
+NounRoot;
+VerbRoot;
+
+
+LEXICON NounRoot
+caribou:tuntu           NounDeriv;
+village:nuna            NounDeriv;
+boat:angyar             NounDeriv;
+ice.cream:akutar        NounDeriv;
+river:kuig              NounDeriv;
+person:yug              NounDeriv;
+dog:qimugte             NounDeriv;
+
+
+
+LEXICON VerbRoot
+work:cali               VerbDeriv;
+eat:nere                VerbDeriv;
+play:aqui               VerbDeriv;
+sleep:qavar             VerbDeriv;
+be.good:assir           VerbDeriv;
+study:elitnaur          VerbDeriv;
+be.hungry:kaig          VerbDeriv;
+
+
+
+LEXICON NounDeriv
+NounInfl;
+
+-big:-rpag              NounDeriv;
+! -baby:-yagar            NounDeriv;
+-fake:~+(ng)uar         NounDeriv;
+
+-to.make:-li            VerbDeriv;
+-to.lack:~:(ng)ite       VerbDeriv;
+
+
+
+LEXICON VerbDeriv
+VerbInfl;
+
+-PST:-llru              VerbDeriv;
+-again:-nqigte          VerbDeriv;
+! -A'.say:~+ni           VerbDeriv;
+
+-one.who:+(s)te          NounDeriv;
+-place.to.V:~+vig       NounDeriv;
+
+
+
+LEXICON VerbInfl
+-IND.3sg:~+(g)(t)uq     EncliticOrEnd;
+-IND.1sg.3sg:~+(g)aqa   EncliticOrEnd;
+
+
+
+LEXICON NounInfl
+\ABS.sg:0               EncliticOrEnd;
+-ABS.1sg.sg:-ka         EncliticOrEnd;
+
+
+
+LEXICON EncliticOrEnd
+#;
+=QST:=qaa               EncliticOrEnd;
+=reported:=gguq         EncliticOrEnd;
