@@ -68,10 +68,10 @@ def pairs(transducer):
     pairs = ''
     results = transducer.extract_paths(output='dict')
     for input,outputs in results.items():
-        pairs += f'{remove_epsilons(input)}:\n'
+        pairs += remove_epsilons(input) + ":\n"
         for output in outputs:
             out = remove_epsilons(output[0])
-            pairs += f' {out}\n'
+            pairs += " " + out + "\n"
     return pairs
 
 
