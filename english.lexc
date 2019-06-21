@@ -7,12 +7,12 @@ Verb ;
 
 LEXICON Noun
 
-cat   Ninf;
-city  Ninf;
-fox   Ninf;
-panic Ninf;
-try   Ninf;
-watch Ninf;
+cat   Nstem;
+city  Nstem;
+fox   Nstem;
+panic Nstem;
+try   Nstem;
+watch Nstem;
 
 LEXICON Verb
 
@@ -23,7 +23,7 @@ panic Vinf;
 try   Vinf;
 watch Vinf;
 
-LEXICON Ninf
+LEXICON Nstem
 
 +N+Sg:0   #;
 +N+Pl:^s  #;
