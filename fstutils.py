@@ -12,6 +12,7 @@ def remove_epsilons(string, epsilon='@_EPSILON_SYMBOL_@'):
     """
     return string.replace('@_EPSILON_SYMBOL_@', '')
 
+
 def lookup(transducer, string):
     """Returns the output for an input in an hfst transducer, sans any epsilons or weights.
     
@@ -23,9 +24,39 @@ def lookup(transducer, string):
         str: The output of string in transducer
     """
     results = transducer.lookup(string)
-    if results:
-        raise FstPathNotFound()
-    return remove_epsilons([r[0] for r in results])
+    if not results:
+        raise FstPathNotFound("The string " + string + " was not found in the transducer")
+    return [remove_epsilons(r[0]) for r in results]
+
+def test_fst(transducer, expected):
+    """Tests whether an FST produces all output as provided in expected
+    
+    Args: 
+        transducer (HfstTransducer): The HfstTransducer to use for testing
+        expected (dict): This is a dictionary where the key is a word form and the 
+                         value returned is a list of analyses for that key given the fst
+    
+    """
+    error_count = 0
+    pass_count = 0
+    for key in expected:
+        results = lookup(transducer, key)
+        for item in results:
+            if item not in expected[key]:
+                print("Your grammar over generates the word " + item + " given the input " + key)
+                error_count += 1
+
+        if expected[key] not in results:
+            print("Your grammar does not generate the word " + expected[key] + " given the input " + key)
+            error_count += 1
+
+    print("There were " + str(error_count) + " errors")
+    if error_count == 0:
+        print("PASSED!!!!")
+        return True
+    else:
+        return False
+
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
@@ -45,8 +76,26 @@ def pairs(transducer):
             pairs += f' {out}\n'
     return pairs
 
+
+def read_test_file(filepath):
+    """
+    Read in the test file specified where each line is a target input to the 
+    transducer. The left token is the input to the transducer and the right token
+    is the output from the transducer.
+    """
+    expected_output = {}
+    with open(filepath) as tst_file:
+        for line in tst_file:
+            line = line.split(" ")
+            line = [piece.strip() for piece in line]
+            expected_output[line[0]] = line[1]
+            
+    return expected_output
+
+
 class FstPathNotFound(Exception):
     pass
+
 
 class Definitions:
     """A utility class for creating Set FSTs for reuse in FST regex.
@@ -70,8 +119,13 @@ class Definitions:
                 replaced = False
                 for fstname2, regex2 in self.defs.items():
                     if fstname != fstname2:
-                        self.defs[fstname] = regex.replace(fstname2, regex2)
-                        replaced = True
+                        result = regex.replace(fstname2, regex2)
+                        if result != regex:
+                            self.defs[fstname] = result
+                            regex = result
+                            replaced = True
+                            break
+
 
     def replace(self, string):
         """Replaces all defined set names occuring in regex string with corresponding set.
