@@ -11,12 +11,15 @@ VerbRoot;
 
 LEXICON NounRoot
 caribou:tuntu           NounDeriv;
-village:nuna            NounDeriv;
 boat:angyar             NounDeriv;
-ice.cream:akutar        NounDeriv;
 river:kuig              NounDeriv;
-person:yug              NounDeriv;
 dog:qimugte             NounDeriv;
+
+village:nuna            NounDeriv;
+ice.cream:akutar        NounDeriv;
+person:yug              NounDeriv;
+sun:akerte              NounDeriv;
+
 
 
 
@@ -26,20 +29,24 @@ eat:nere                VerbDeriv;
 play:aqui               VerbDeriv;
 sleep:qavar             VerbDeriv;
 be.good:assir           VerbDeriv;
-study:elitnaur          VerbDeriv;
 be.hungry:kaig          VerbDeriv;
 
+be.smart:elisnga        VerbDeriv;
+sit:aqume               VerbDeriv;
+walk:piyua              VerbDeriv;
+study:elitnaur          VerbDeriv;
+go:ayag                 VerbDeriv;
 
 
 LEXICON NounDeriv
 NounInfl;
 
 -big:-rpag              NounDeriv;
-! -baby:-yagar            NounDeriv;
+-baby:-yagar            NounDeriv;
 -fake:~+(ng)uar         NounDeriv;
 
 -to.make:-li            VerbDeriv;
--to.lack:~%:(ng)ite       VerbDeriv;
+-to.lack:~%:(ng)ite      VerbDeriv;
 
 
 
@@ -48,10 +55,10 @@ VerbInfl;
 
 -PST:-llru              VerbDeriv;
 -again:-nqigte          VerbDeriv;
-! -A'.say:~+ni           VerbDeriv;
+ -A'.say:~+ni           VerbDeriv;
 
--one.who:+(s)te          NounDeriv;
--place.to.V:~+vig       NounDeriv;
+-place.to:~+vig         NounDeriv;
+-one.who:+(s)te         NounDeriv;
 
 
 

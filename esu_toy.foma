@@ -3,8 +3,6 @@
 read lexc esu_toy.lexc
 define Lexicon
 
-define WordBoundary [ .#. ];
-
 define Stop        [ p | t | c | k | q ];
 define Nasal       [ m | n | "ng" | 
                      ḿ | ń | "ńg" ];
@@ -31,9 +29,6 @@ define Allomorphy           "(ng)" -> "ng",
                             [ "(ng)" | "(s)" | "(g)" | "(t)" ] -> 0 ;
 
 
-define VelarDroping         [ g | r | "ng" ] -> 0 || C V _ ":" V C          .o.
-                            ":" -> 0 ;
-
 define KeepConsonant        "+" -> 0 ;
 
 define DropConsonant        C -> 0 || _ MorphPhonSymbols* "-" .o.
@@ -42,11 +37,12 @@ define DropConsonant        C -> 0 || _ MorphPhonSymbols* "-" .o.
 define EDeletion            e -> 0 || _ MorphPhonSymbols* "~" .o.
                             "~" -> 0 ;
 
-define BaseFinalEndings     r -> q,
-                            g -> k,
-                            e -> a || _ ([= Alphabet*]*) WordBoundary ;
+define VelarDropping        [ g | r | "ng" ] -> 0 || C V _ ":" V C          .o.
+                            ":" -> 0 ;
 
-define RemoveMorphon        [ "@" | "`" ] -> 0 ;
+define WordFinalEndings     r -> q,
+                            g -> k,
+                            e -> a || _ [ "=" | .#. ] ;
 
 define TripleConsonant      [..] -> e || C C _ C ;
 
@@ -59,9 +55,8 @@ define Grammar [
             DropConsonant       .o.
             KeepConsonant       .o.
             EDeletion           .o.
-            VelarDroping        .o.
-            RemoveMorphon       .o.
-            BaseFinalEndings    .o.
+            VelarDropping        .o.
+            WordFinalEndings    .o.
             TripleConsonant     .o.
             Engi ] ;
 
