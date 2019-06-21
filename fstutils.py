@@ -25,7 +25,7 @@ def lookup(transducer, string):
     """
     results = transducer.lookup(string)
     if not results:
-        raise FstPathNotFound()
+        raise FstPathNotFound("The string " + string + " was not found in the transducer")
     return [remove_epsilons(r[0]) for r in results]
 
 def test_fst(transducer, expected):
@@ -40,22 +40,23 @@ def test_fst(transducer, expected):
     error_count = 0
     pass_count = 0
     for key in expected:
-        res = fst.lookup(key)
-        for item in res:
-            if not in expected[key]:
+        results = lookup(transducer, key)
+        for item in results:
+            if item not in expected[key]:
                 print("Your grammar over generates the word " + item + " given the input " + key)
                 error_count += 1
 
-        for val in expected[key]:
-            if val not in res:
-                print("Your grammar does not generate the word " + val + " given the input " + key)
-                error_count += 1
+        if expected[key] not in results:
+            print("Your grammar does not generate the word " + expected[key] + " given the input " + key)
+            error_count += 1
 
     print("There were " + str(error_count) + " errors")
     if error_count == 0:
+        print("PASSED!!!!")
         return True
     else:
         return False
+
 
 def pairs(transducer):
     """Enumerates all possible input-output pairs in an hfst transducer. Best suited to be printed.
@@ -75,8 +76,26 @@ def pairs(transducer):
             pairs += f' {out}\n'
     return pairs
 
+
+def read_test_file(filepath):
+    """
+    Read in the test file specified where each line is a target input to the 
+    transducer. The left token is the input to the transducer and the right token
+    is the output from the transducer.
+    """
+    expected_output = {}
+    with open(filepath) as tst_file:
+        for line in tst_file:
+            line = line.split(" ")
+            line = [piece.strip() for piece in line]
+            expected_output[line[0]] = line[1]
+            
+    return expected_output
+
+
 class FstPathNotFound(Exception):
     pass
+
 
 class Definitions:
     """A utility class for creating Set FSTs for reuse in FST regex.
