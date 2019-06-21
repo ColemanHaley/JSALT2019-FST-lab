@@ -48,7 +48,7 @@ def test_fst(transducer, expected):
 
     error_percent = float(error_count) / len(expected.keys())
     print("There were " + str(error_count) + " errors")
-    print("Your error percent is 
+    print("Your error percent is" + str(error_percent)) 
     if error_count == 0:
         print("PASSED!!!!")
         return True
