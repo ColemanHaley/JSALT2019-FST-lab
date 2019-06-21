@@ -30,4 +30,3 @@ work-PST-IND.3sg=QST calillruuq-qaa
 boat-to.make-IND.3sg=QST angyaliuq-qaa
 sleep-IND.3sg=QST qavartuq-qaa
 river-baby-big-to.make-again-PST-IND.3sg kuiyagarpalinqigtellruuq
-sleep-PST-again-place.to-big-to.make-again-IND.3sg=QST qavallrunqigtevirpalinqigtuq-qaa
