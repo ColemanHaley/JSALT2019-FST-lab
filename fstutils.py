@@ -43,14 +43,12 @@ def test_fst(transducer, expected):
         results = lookup(transducer, key)
         for item in results:
             if item not in expected[key]:
-                print("Your grammar over generates the word " + item + " given the input " + key)
+                print("Your grammar the output " + item + " given the input " + key + " instead of " + expected[key])
                 error_count += 1
 
-        if expected[key] not in results:
-            print("Your grammar does not generate the word " + expected[key] + " given the input " + key)
-            error_count += 1
-
+    error_percent = float(error_count) / len(expected.keys())
     print("There were " + str(error_count) + " errors")
+    print("Your error percent is 
     if error_count == 0:
         print("PASSED!!!!")
         return True
