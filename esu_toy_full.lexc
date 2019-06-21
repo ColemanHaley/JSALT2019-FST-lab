@@ -15,6 +15,13 @@ boat:angyar             NounDeriv;
 river:kuig              NounDeriv;
 dog:qimugte             NounDeriv;
 
+village:nuna            NounDeriv;
+ice.cream:akutar        NounDeriv;
+person:yug              NounDeriv;
+sun:akerte              NounDeriv;
+
+
+
 
 LEXICON VerbRoot
 work:cali               VerbDeriv;
@@ -24,29 +31,50 @@ sleep:qavar             VerbDeriv;
 be.good:assir           VerbDeriv;
 be.hungry:kaig          VerbDeriv;
 
+be.smart:elisnga        VerbDeriv;
+sit:aqume               VerbDeriv;
+walk:piyua              VerbDeriv;
+study:elitnaur          VerbDeriv;
+go:ayag                 VerbDeriv;
+
 
 LEXICON NounDeriv
 NounInfl;
+
 -big:-rpag              NounDeriv;
 -baby:-yagar            NounDeriv;
+-fake:~+(ng)uar         NounDeriv;
+
 -to.make:-li            VerbDeriv;
+-to.lack:~%:(ng)ite      VerbDeriv;
+
 
 
 LEXICON VerbDeriv
 VerbInfl;
+
 -PST:-llru              VerbDeriv;
 -again:-nqigte          VerbDeriv;
+-A'.say:~+ni            VerbDeriv;
+
 -place.to:~+vig         NounDeriv;
+-one.who:+(s)te         NounDeriv;
+
 
 
 LEXICON VerbInfl
 -IND.3sg:~+(g)(t)uq     EncliticOrEnd;
+-IND.1sg.3sg:~+(g)aqa   EncliticOrEnd;
+
 
 
 LEXICON NounInfl
 \ABS.sg:0               EncliticOrEnd;
+-ABS.1sg.sg:-ka         EncliticOrEnd;
+
 
 
 LEXICON EncliticOrEnd
 #;
 =QST:=qaa               EncliticOrEnd;
+=reported:=gguq         EncliticOrEnd;
